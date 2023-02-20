@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 public class VueGraphePartie extends VueGraphe {
     int oujesuis = -1;
-    int apres = -1;
     Graphe origin;
     Partie partie;
     boolean toSolve = false;
