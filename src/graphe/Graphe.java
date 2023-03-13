@@ -19,6 +19,7 @@ class Graphe implements Cloneable {
 		return g;
 	}
 
+	// souvent constant, O(n) en le nombre de sommets sinon
 	public void addSommet() {
 		taille_++;
 		if (taille_ > contenu[0].length) {
@@ -30,33 +31,39 @@ class Graphe implements Cloneable {
 			}
 			contenu = nouveau_contenu;
 		}
-		for (int n = 0; n < taille_; n++) {
-			contenu[taille_ - 1][n] = 0;
-			contenu[n][taille_ - 1] = 0;
-		}
 	}
+
+	// O(1) : constant
 	public void addConnections(int i, int j, int count) {
 		contenu[i][j] = (byte)Math.min(0xFF, Math.max(0x00, (int)contenu[i][j] + count)); // Clamp to a byte.
 		if (i != j) {
 			contenu[j][i] = (byte)Math.min(0xFF, Math.max(0x00, (int)contenu[j][i] + count));
 		}
 	}
+
+	// O(n) : linéaire en le nombre de sommets
 	public void supprSommet(int i) {
 		for (int j = 0; j < taille_; j++) {
 			contenu[i][j] = contenu[taille_ - 1][j];
 			contenu[j][i] = contenu[j][taille_ - 1];
+			contenu[taille_ - 1][j] = 0;
+			contenu[j][taille_ - 1] = 0;
 		}
 		taille_--;
 	}
+
+	// O(n) : linéaire en le nombre de sommets
 	public ArrayList<Integer> getConnexions(int i) {
 		var r = new ArrayList<Integer>();
-		for (int j = 0; j < contenu[0].length; j++) {
+		for (int j = 0; j < taille_; j++) {
 			for (int n = 0; n < getConnexion(i, j); n++) {
 				r.add(j);
 			}
 		}
 		return r;
 	}
+
+	// O(n^2) : quadratique en le nombre de sommets
 	public boolean hasConnexions() {
 		for (int i = 0; i < taille_; i++) {
 			for (int j = i; j < taille_; j++) {
@@ -67,6 +74,8 @@ class Graphe implements Cloneable {
 		}
 		return false;
 	}
+
+	// O(1) : constant
 	public int getConnexion(int i, int j) {
 		return contenu[i][j];
 	}
@@ -88,6 +97,7 @@ class Graphe implements Cloneable {
 		return res;
 	}
 
+	// O(n + m) où n désigne le nombre de sommets et m le nombre d'arêtes
 	public ArrayList<Integer> breadthFirst(int start) {
 		var result = new ArrayList<Integer>();
 		result.add(Integer.valueOf(start));
@@ -101,6 +111,7 @@ class Graphe implements Cloneable {
 		return result;
 	}
 
+	// O(n + m) où n désigne le nombre de sommets et m le nombre d'arêtes
 	public boolean estEulerien() {
 		if (taille() == 0) {
 			return false;
