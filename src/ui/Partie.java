@@ -143,10 +143,26 @@ public class Partie extends JPanel {
 		if (point == -1) {
 			return;
 		}
+		hamiltonien(point);
+	}
+
+	public void eulerien(int point) {
 		if (g.get_selected() == -1) {
 			g.select(point);
 		} else if (g.getGraphe().getConnexion(g.get_selected(), point) != 0) {
 			g.getGraphe().addConnections(g.get_selected(), point, -1);
+			g.select(point);
+			if (estFinie()) {
+				finDePartie();
+			}
+		}
+	}
+
+	public void hamiltonien(int point) {
+		if(g.get_selected() == -1) {
+			g.select(point);
+		} else if (g.getGraphe().getConnexion(g.get_selected(), point) != 0) {
+			g.supprSommet(g.get_selected());
 			g.select(point);
 			if (estFinie()) {
 				finDePartie();
