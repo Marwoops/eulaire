@@ -49,14 +49,19 @@ public class Partie extends JPanel {
 		background = bg;
 
 		MouseInputListener ml = new MouseInputListener() {
-			public void mouseExited(MouseEvent e) {}
-			public void mouseEntered(MouseEvent e) {}
-			public void mouseReleased(MouseEvent e) {}
-			public void mousePressed(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {
+			}
+			public void mouseEntered(MouseEvent e) {
+			}
+			public void mouseReleased(MouseEvent e) {
+			}
+			public void mousePressed(MouseEvent e) {
+			}
 			public void mouseClicked(MouseEvent e) {
 				next_point(e);
 			}
-			public void mouseMoved(MouseEvent e) {}
+			public void mouseMoved(MouseEvent e) {
+			}
 			public void mouseDragged(MouseEvent e) {
 				next_point(e);
 			}
