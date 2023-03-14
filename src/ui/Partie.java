@@ -6,8 +6,7 @@ public class Partie extends JPanel {
 	VueGraphePartie g;
 	Image background;
 	JButton regenerer = new JButton(new ImageIcon("../files/textures/retry.png"));
-	JButton solution = new JButton(new ImageIcon("../files/textures/solve.png")); //créer une image vite fait +
-	                                                                              // modifier ici le chemin
+	JButton solution = new JButton(new ImageIcon("../files/textures/solve.png"));
 
 	public Partie(Image bg) {
 		background = bg;

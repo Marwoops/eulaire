@@ -3,6 +3,7 @@ import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.Timer;
 import javax.swing.*;
 
 public class VueGraphePartie extends VueGraphe {
@@ -67,11 +68,14 @@ public class VueGraphePartie extends VueGraphe {
 			if (i == oujesuis) {
 				g.setColor(Color.green);
 			}
+
 			((Graphics2D) g).draw(new Ellipse2D.Double(coord.get(i).getX(), coord.get(i).getY(), diam,
 			                                           diam));
+
 			if (i == oujesuis) {
 				g.setColor(getCouleur());
 			}
+
 			for (int j = i; j < getGraphe().taille(); ++j) {
 				if (getGraphe().getConnexion(i, j) != 0) {
 					int coord_i_x = (int) (coord.get(i).getX() + diam / 2);
@@ -81,7 +85,7 @@ public class VueGraphePartie extends VueGraphe {
 					g.drawLine(coord_i_x, coord_i_y, coord_j_x, coord_j_y);
 					if (getGraphe().getConnexion(i, j) > 1) {
 						g.drawString(getGraphe().getConnexion(i, j) + "", // uncrustify,
-						             (coord_i_x + coord_j_x) / 2, // what are you doing.
+						             (coord_i_x + coord_j_x) / 2,    // what are you doing.
 						             (coord_i_y + coord_j_y) / 2);
 					}
 				}
@@ -90,30 +94,44 @@ public class VueGraphePartie extends VueGraphe {
 
 		if (toSolve) {
 			System.out.println("Ce graphe est eulérien.");
-			g.setColor(Color.green);
 			ArrayList<Integer> sol = getGraphe().hierholzer();
-			for (int i = 0; i < sol.size() - 1; i++) {
+
+			for (int i = 0; i < index; ++i) {
+				g.setColor(Color.WHITE);
+				int coord_i_x = (int) (coord.get(sol.get(i)).getX() + diam / 2);
+				int coord_i_y = (int) (coord.get(sol.get(i)).getY() + diam / 2);
+				int coord_j_x = (int) (coord.get(sol.get(i + 1)).getX() + diam / 2);
+				int coord_j_y = (int) (coord.get(sol.get(i + 1)).getY() + diam / 2);
+				if (getGraphe().getConnexion(sol.get(i), sol.get(i + 1)) > 1) {
+					g.drawString(getGraphe().getConnexion(sol.get(i), sol.get(i + 1)) - cpt + "", // uncrustify,
+					             (coord_i_x + coord_j_x) / 2,            // what are you doing.
+					             (coord_i_y + coord_j_y) / 2);
+					cpt++;
+					if (getGraphe().getConnexion(sol.get(i), sol.get(i + 1)) - cpt > 1) {
+						g.setColor(Color.black);
+						g.drawString(getGraphe().getConnexion(sol.get(i), sol.get(
+											      i + 1)) - cpt + "",           // uncrustify,
+						             (coord_i_x + coord_j_x) / 2,    // what are you doing.
+						             (coord_i_y + coord_j_y) / 2);
+					} else if (getGraphe().getConnexion(sol.get(i), sol.get(i + 1)) - cpt == 1) {
+						g.setColor(Color.black);
+						g.drawLine(coord_i_x, coord_i_y, coord_j_x, coord_j_y);
+					} else {
+						g.setColor(Color.WHITE);
+						g.drawLine(coord_i_x, coord_i_y, coord_j_x, coord_j_y);
+					}
+				} else {
+					g.drawLine(coord_i_x, coord_i_y, coord_j_x, coord_j_y);
+					cpt = 0;
+				}
+				g.setColor(Color.black);
 				((Graphics2D) g).draw(new Ellipse2D.Double(coord.get(sol.get(i)).getX(),
 				                                           coord.get(sol.get(i)).getY(), diam, diam));
-				/*try {
-				    TimeUnit.SECONDS.sleep(1);
-				   } catch (InterruptedException e) {
-				    System.out.println("Oups");
-				   }*///inutile
-				int coord_a_x = (int) (coord.get(sol.get(i)).getX() + diam / 2);
-				int coord_a_y = (int) (coord.get(sol.get(i)).getY() + diam / 2);
-				int coord_b_x = (int) (coord.get(sol.get(i + 1)).getX() + diam / 2);
-				int coord_b_y = (int) (coord.get(sol.get(i + 1)).getY() + diam / 2);
-				g.drawLine(coord_a_x, coord_a_y, coord_b_x, coord_b_y);
-				/*try {
-				    TimeUnit.SECONDS.sleep(1);
-				   } catch (InterruptedException e) {
-				    System.out.println("Oups");
-				   }*///inutile
 				((Graphics2D) g).draw(new Ellipse2D.Double(coord.get(sol.get(i + 1)).getX(),
 				                                           coord.get(sol.get(i + 1)).getY(), diam,
 				                                           diam));
 			}
+			index++;
 		}
 	}
 
@@ -137,10 +155,29 @@ public class VueGraphePartie extends VueGraphe {
 		}
 	}
 
+	int cpt = 0;
+	int index = 1;
 	public void solution() {
 		if (getGraphe().estEulerien() && getGraphe().hierholzer() != null) {
 			toSolve = true;
-			repaint();
+			final Timer timer = new Timer();
+			final TimerTask task = new TimerTask() {
+				public void run() {
+					if (index >= getGraphe().hierholzer().size() - 1) {
+						timer.cancel();
+						this.cancel();
+						timer.purge();
+					}
+					if (index == getGraphe().hierholzer().size()) {
+						cpt = 0;
+						index = 1;
+					}
+					System.out.println(index + "Task started");
+					repaint();
+					System.out.println(index + "Task ended");
+				}
+			};
+			timer.scheduleAtFixedRate(task, 1000, 1000);
 		} else {
 			System.out.println("Ce graphe n'a pas de solution.");
 		}
