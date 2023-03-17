@@ -1,5 +1,48 @@
-coucou
-je suis pala
-il faut cliquer ça fait des sommets
-quand tu cliques sur les sommets ça relie
-finito
+AIDE ÉDITEUR :
+
+
+Cet éditeur de graphe propose de nombreux outils facilitant la création et la modification de multigraphes.
+Vous pouvez complètement créer un graphe ou bien en modifier un déjà existant, et sauvegarder ce dernier dans les fichiers du jeu.
+Le graphe prend place au sein du rectangle blanc, les boutons à droite sont différents outils d'interaction, et le bouton "JEU" permet
+de tester en condition de jeu le graphe actuel.
+
+
+Outils de modification du graphe :
+
+
+Placer un sommet :
+cliquer là où on veut le placer
+
+Relier plusieurs sommets :
+cliquer successivement sur les différents sommets pour former un chemin,
+le sommet sélectionné apparait en vert, vous pouvez cliquer à nouveau sur ce dernier pour déselectionner le sommet.
+Vous pouvez relier plusieurs fois deux sommets (si le nombre d'arêtes reliant deux sommets est supérieur à 2, une seule arête
+surmontée de ce nombre sera affichée)
+
+Déplacer un sommet :
+Cliquer et maintenir sur le sommet, tout en déplaçant le curseur
+
+Supprimer un sommet :
+Sélectionner le bouton "supprimer", puis cliquer sur le sommet à supprimer,
+pour sortir du mode de suppression, cliquer à nouveau sur le bouton "supprimer".
+
+Supprimer une arête :
+Sélectionner le bouton "supprimer", puis cliquer sur un sommet, et maintenir tout en déplaçant le curseur jusqu'au sommet relié
+dont on veut supprimer la connexion.
+Vous pouvez supprimer plusieurs arêtes à la suite en maintenant le clic.
+
+Le bouton "supprimer tout" :
+Fait ce que son nom indique.
+
+Le bouton "graphe random" :
+Génère un graphe avec un nombre de sommets et d'arêtes aléatoire, les sommets sont placés de manière aléatoire.
+
+Les boutons "+" et "-" autour de "Sommets" et "Arêtesé :
+À chaque pression, ajoute ou retire un sommet/arête aléatoire.
+
+
+Outils de Sauvegarde du graphe :
+
+
+
+
