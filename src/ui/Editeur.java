@@ -33,6 +33,8 @@ public class Editeur extends JPanel {
 
 	private JButton jouer;
 
+	private JButton aide;
+
 	private JFrame frame;
 
 	public Editeur(JFrame frame, Image bg, String pack, VueGraphe vg, int level) {
@@ -161,6 +163,13 @@ public class Editeur extends JPanel {
 			frame.repaint();
 		});
 		add(jouer);
+
+		aide = Utils.generate_button("aide", e -> {
+			frame.setContentPane(new AideEditeur(frame, background, pack, vuegraphe, graphe_actuel));
+			frame.revalidate();
+			frame.repaint();
+		});
+		add(aide);
 	}
 
 	public static Point getRandomCoord() {
@@ -220,6 +229,7 @@ public class Editeur extends JPanel {
 		exporter.setBounds(getWidth() - 100, 420, 50, 50);
 		importer.setBounds(getWidth() - 100, 480, 50, 50);
 		jouer.setBounds(getWidth() - 120, 800, 100, 50);
+		aide.setBounds(getWidth() - 120, 700, 100, 50);
 	}
 
 
@@ -232,18 +242,22 @@ public class Editeur extends JPanel {
 				input_handler.on_vertex_click(current_vertex);
 			}
 		}
-		public void mouseEntered(MouseEvent e) {}
-		public void mouseExited(MouseEvent e) {}
+		public void mouseEntered(MouseEvent e) {
+		}
+		public void mouseExited(MouseEvent e) {
+		}
 		public void mousePressed(MouseEvent e) {
 			current_vertex = vuegraphe.getId(e.getX(), e.getY());
 		}
-		public void mouseReleased(MouseEvent e) {}
+		public void mouseReleased(MouseEvent e) {
+		}
 		public void mouseDragged(MouseEvent e) {
 			if (current_vertex != -1) {
 				input_handler.on_vertex_drag(current_vertex, e.getPoint());
 			}
 		}
-		public void mouseMoved(MouseEvent e) {}
+		public void mouseMoved(MouseEvent e) {
+		}
 	}
 
 	private abstract class InputHandler {
@@ -274,7 +288,8 @@ public class Editeur extends JPanel {
 		public void on_vertex_click(int vertex) {
 			vuegraphe.supprSommet(vertex);
 		}
-		public void on_point_click(Point p) {}
+		public void on_point_click(Point p) {
+		}
 		public void on_vertex_drag(int vertex, Point p) {
 			if (last_deleted == -1) {
 				last_deleted = vertex;
