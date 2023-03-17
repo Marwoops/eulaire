@@ -4,7 +4,10 @@ AIDE ÉDITEUR :
 Cet éditeur de graphe propose de nombreux outils facilitant la création et la modification de multigraphes.
 Vous pouvez complètement créer un graphe ou bien en modifier un déjà existant, et sauvegarder ce dernier dans les fichiers du jeu.
 Le graphe prend place au sein du rectangle blanc, les boutons à droite sont différents outils d'interaction, et le bouton "JEU" permet
-de tester en condition de jeu le graphe actuel.
+de tester en condition de jeu le graphe actuel, vous pouvez modifier à nouveau votre graphe après l'avoir testé.
+Dans l'éditeur, un graphe sera affiché de couleur rouge si il n'est pas eulérien, et de couleur bleue si il l'est.
+
+
 
 
 Outils de modification du graphe :
@@ -27,7 +30,7 @@ Sélectionner le bouton "supprimer", puis cliquer sur le sommet à supprimer,
 pour sortir du mode de suppression, cliquer à nouveau sur le bouton "supprimer".
 
 Supprimer une arête :
-Sélectionner le bouton "supprimer", puis cliquer sur un sommet, et maintenir tout en déplaçant le curseur jusqu'au sommet relié
+Sélectionner le bouton "supprimer", puis cliquer et maintenir sur un sommet, déplacer le curseur jusqu'au sommet relié
 dont on veut supprimer la connexion.
 Vous pouvez supprimer plusieurs arêtes à la suite en maintenant le clic.
 
@@ -37,12 +40,21 @@ Fait ce que son nom indique.
 Le bouton "graphe random" :
 Génère un graphe avec un nombre de sommets et d'arêtes aléatoire, les sommets sont placés de manière aléatoire.
 
-Les boutons "+" et "-" autour de "Sommets" et "Arêtesé :
+Les boutons "+" et "-" autour de "Sommets" et "Arêtes" :
 À chaque pression, ajoute ou retire un sommet/arête aléatoire.
 
 
 Outils de Sauvegarde du graphe :
 
+Les boutons "exporter" et "importer" permettent d'importer des graphes pour les modifier, et de sauvegarder le graphe actuel.
+La fonction de ces boutons dépendra premièrement du pack dans lequel vous vous trouvez, ce pack est sélectionnable dans le menu 
+du jeu.
+Par défaut le pack est "Ω", correspondant à un pack destiné à être créé par l'utilisateur, vous pouvez évidemment accéder aux 
+autres packs disponibles.
 
+Dans l'éditeur, une fois le pack sélectionné :
 
+- Si vous cliquez sur "importer", cela chargera successivement les différents graphes du pack. 
+Appuyer sur "exporter" après une importation aura pour effet d'écraser l'ancien graphe et de le remplacer par le nouveau.
 
+- Si vous n'avez pas importé de graphe, exporter le graphe actuel ajoutera un nouveau graphe au pack sélectionné.
